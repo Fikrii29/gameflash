@@ -1,0 +1,59 @@
+{
+  "name": "Gameflash - Top Up Game",
+  "short_name": "Gameflash",
+  "description": "Top Up game favoritmu dengan harga terbaik dan proses instan. Mobile Legends, Free Fire, PUBG, Genshin Impact & lebih banyak lagi.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#05050f",
+  "theme_color": "#00d4ff",
+  "lang": "id",
+  "categories": ["games", "shopping", "utilities"],
+  "icons": [
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Cek Pesanan",
+      "short_name": "Cek Order",
+      "description": "Cek status pesanan top up kamu",
+      "url": "/check-order.html",
+      "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Top Up Mobile Legends",
+      "short_name": "Top Up ML",
+      "description": "Top up Mobile Legends langsung",
+      "url": "/order.html?game=ml",
+      "icons": [{ "src": "img/ml.png", "sizes": "192x192" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
