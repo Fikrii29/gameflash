@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gameflash - Top Up Game Tercepat & Terpercaya</title>
+<meta name="description" content="Top Up game favoritmu dengan harga terbaik dan proses instan. Mobile Legends, Free Fire, PUBG, Genshin Impact & lebih banyak lagi."/>
+<link rel="stylesheet" href="css/style.css"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"/>
+</head>
+<body>
+
+<!-- Animated Background -->
+<div class="bg-particles" id="bgParticles"></div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="logo-icon">⚡</div>
+    <span>Gameflash</span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html" class="nav-link active">Beranda</a>
+    <a href="check-order.html" class="nav-link">Cek Pesanan</a>
+    <a href="admin/index.html" class="nav-link">Admin</a>
+    <a href="check-order.html" class="nav-cta">🔍 Cek Status</a>
+  </div>
+  <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">⚡ Proses Instan &nbsp;•&nbsp; Harga Terbaik &nbsp;•&nbsp; 24/7 Online</div>
+    <h1>Top Up Game<br><span class="gradient-text">Tercepat & Terpercaya</span></h1>
+    <p>Top Up game favoritmu dengan mudah, aman, dan instan. Tersedia 1000+ produk dari 12+ game populer dengan harga terjangkau.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('gamesSection').scrollIntoView({behavior:'smooth'})">
+        🎮 Mulai Top Up
+      </button>
+      <a href="check-order.html" class="btn-secondary">🔍 Cek Pesanan</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="value" id="statTx">0</div><div class="label">Transaksi</div></div>
+      <div class="hero-stat"><div class="value">12+</div><div class="label">Game</div></div>
+      <div class="hero-stat"><div class="value">99%</div><div class="label">Sukses Rate</div></div>
+      <div class="hero-stat"><div class="value">24/7</div><div class="label">Online</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO BANNER / FLASH SALE -->
+<section class="promo-section" id="promoSection">
+  <div class="container">
+    <div class="promo-slider-wrapper">
+      <!-- Flash Sale Countdown -->
+      <div class="promo-countdown" id="promoCountdown">
+        <div class="countdown-label">⚡ Flash Sale berakhir dalam:</div>
+        <div class="countdown-timer" id="countdownTimer">
+          <div class="countdown-block"><span class="cd-value" id="cdHours">00</span><span class="cd-label">Jam</span></div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-block"><span class="cd-value" id="cdMinutes">00</span><span class="cd-label">Menit</span></div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-block"><span class="cd-value" id="cdSeconds">00</span><span class="cd-label">Detik</span></div>
+        </div>
+      </div>
+
+      <!-- Slider Track -->
+      <div class="promo-slider" id="promoSlider">
+        <div class="promo-track" id="promoTrack">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <button class="promo-nav promo-prev" id="promoPrev" onclick="promoSlide(-1)" aria-label="Previous">‹</button>
+      <button class="promo-nav promo-next" id="promoNext" onclick="promoSlide(1)" aria-label="Next">›</button>
+
+      <!-- Dots -->
+      <div class="promo-dots" id="promoDots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- BESTSELLER / TRENDING -->
+<section class="bestseller-section" id="bestsellerSection">
+  <div class="container">
+    <div class="section-header" style="text-align:left;margin-bottom:24px;">
+      <div class="section-badge">🔥 Trending</div>
+      <h2 class="section-title"><span class="gradient-text">Produk Terlaris</span></h2>
+      <p class="section-desc">Game paling banyak dibeli oleh pengguna Gameflash</p>
+    </div>
+    <div class="bestseller-scroll" id="bestsellerScroll">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- GAMES SECTION -->
+<section class="py-section" id="gamesSection">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">🎮 Game Populer</div>
+      <h2 class="section-title">Pilih <span class="gradient-text">Game</span> Kamu</h2>
+      <p class="section-desc">Tersedia berbagai game populer dengan harga terbaik dan proses instan</p>
+    </div>
+    <div class="search-wrapper">
+      <input type="text" class="search-input" id="searchInput" placeholder="🔍  Cari game..." oninput="filterGames()"/>
+    </div>
+    <div class="categories" id="categoryFilter">
+      <button class="cat-btn active" onclick="filterByCategory('all', this)">Semua</button>
+    </div>
+    <div class="games-grid" id="gamesGrid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="py-section" style="background: var(--bg-secondary);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">✨ Keunggulan</div>
+      <h2 class="section-title">Kenapa Pilih <span class="gradient-text">Gameflash?</span></h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="--icon-bg:rgba(0,212,255,0.1); color:var(--cyan)">⚡</div>
+        <div class="feature-title">Proses Instan</div>
+        <div class="feature-desc">Diamond/item langsung masuk ke akun game kamu dalam hitungan menit setelah pembayaran.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="--icon-bg:rgba(139,92,246,0.1); color:var(--purple)">🔒</div>
+        <div class="feature-title">100% Aman</div>
+        <div class="feature-desc">Transaksi terenkripsi dan terpercaya. Pembayaran diproses melalui gateway resmi.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="--icon-bg:rgba(16,185,129,0.1); color:var(--green)">💰</div>
+        <div class="feature-title">Harga Terbaik</div>
+        <div class="feature-desc">Nikmati harga kompetitif dan gunakan voucher diskon untuk penghematan lebih besar.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="--icon-bg:rgba(245,158,11,0.1); color:var(--yellow)">📱</div>
+        <div class="feature-title">Notifikasi WA</div>
+        <div class="feature-desc">Terima notifikasi real-time via WhatsApp di setiap tahap proses transaksimu.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="--icon-bg:rgba(236,72,153,0.1); color:var(--pink)">🏧</div>
+        <div class="feature-title">Banyak Pembayaran</div>
+        <div class="feature-desc">QRIS, Transfer Bank, GoPay, OVO, DANA, ShopeePay, dan masih banyak lagi.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="--icon-bg:rgba(0,212,255,0.1); color:var(--cyan)">🕐</div>
+        <div class="feature-title">24/7 Online</div>
+        <div class="feature-desc">Layanan kami aktif 24 jam sehari, 7 hari seminggu. Top up kapan saja kamu mau.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="py-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">📋 Cara Kerja</div>
+      <h2 class="section-title">Cara Top Up <span class="gradient-text">Mudah</span></h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:24px; text-align:center;">
+      <div style="padding:32px 20px;">
+        <div style="font-size:3rem;margin-bottom:16px;">🎮</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:8px;">1. Pilih Game</div>
+        <p style="color:var(--text-secondary);font-size:0.875rem;">Pilih game yang ingin kamu top up dari daftar game tersedia</p>
+      </div>
+      <div style="padding:32px 20px;">
+        <div style="font-size:3rem;margin-bottom:16px;">📦</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:8px;">2. Pilih Paket</div>
+        <p style="color:var(--text-secondary);font-size:0.875rem;">Pilih nominal yang sesuai dengan kebutuhanmu</p>
+      </div>
+      <div style="padding:32px 20px;">
+        <div style="font-size:3rem;margin-bottom:16px;">💳</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:8px;">3. Bayar</div>
+        <p style="color:var(--text-secondary);font-size:0.875rem;">Bayar via QRIS, transfer bank, atau e-wallet favoritmu</p>
+      </div>
+      <div style="padding:32px 20px;">
+        <div style="font-size:3rem;margin-bottom:16px;">✅</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:8px;">4. Selesai!</div>
+        <p style="color:var(--text-secondary);font-size:0.875rem;">Diamond/item masuk otomatis & kamu dapat notifikasi WA</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">⚡ Gameflash</div>
+      <p>Platform top up game terpercaya dengan harga terbaik dan proses instan. Tersedia 12+ game populer.</p>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <a href="#" style="font-size:1.3rem;">📘</a>
+        <a href="#" style="font-size:1.3rem;">📸</a>
+        <a href="#" style="font-size:1.3rem;">💬</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-title">Game</div>
+      <ul class="footer-links" id="footerGames">
+        <li><a href="#">Mobile Legends</a></li>
+        <li><a href="#">Free Fire</a></li>
+        <li><a href="#">PUBG Mobile</a></li>
+        <li><a href="#">Genshin Impact</a></li>
+        <li><a href="#">Valorant</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-title">Layanan</div>
+      <ul class="footer-links">
+        <li><a href="check-order.html">Cek Pesanan</a></li>
+        <li><a href="#">Panduan Top Up</a></li>
+        <li><a href="#">Refund Policy</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-title">Kontak</div>
+      <ul class="footer-links" id="footerContact">
+        <li><a href="#">💬 WhatsApp CS</a></li>
+        <li><a href="#">📧 Email</a></li>
+        <li><a href="#">📸 Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Gameflash. All rights reserved. | Platform Top Up Game Terpercaya</p>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP CS -->
+<div class="floating-wa" id="floatingWa">
+  <div class="wa-tooltip">💬 Butuh bantuan? Chat kami!</div>
+  <button class="wa-btn" id="waBtn" onclick="openWhatsAppCS()">
+    💬
+    <span class="wa-unread" id="waUnread">1</span>
+  </button>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
