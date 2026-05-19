@@ -53,7 +53,7 @@ const TokoPay = (() => {
   }
 
   function getBaseUrl() {
-    // Gunakan proxy lokal untuk hindari CORS block di browser
+    // Proxy ke Vercel serverless function /api/tokopay
     return window.location.origin + '/api/tokopay';
   }
 
@@ -68,22 +68,21 @@ const TokoPay = (() => {
     }
 
     try {
-      const sign = await md5(merchantId + secretKey + refId);
-      const params = new URLSearchParams({
-        id_merchant: merchantId,
+      // Panggil Vercel API proxy dengan format ?action=order
+      const proxyParams = new URLSearchParams({
+        action: 'order',
         ref_id: refId,
         nominal: amount,
         metode: paymentMethod,
-        sign: sign,
       });
-      if (customerPhone) params.append('hp', customerPhone);
+      if (customerPhone) proxyParams.append('hp', customerPhone);
 
-      const resp = await fetch(`${getBaseUrl()}/v1/order?${params.toString()}`, {
+      const resp = await fetch(`${getBaseUrl()}?${proxyParams.toString()}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       });
 
-      // Jika response bukan 2xx (misal 404 dari GitHub Pages), langsung simulasi
+      // Jika response bukan 2xx, langsung simulasi
       if (!resp.ok) {
         console.warn('[TokoPay] HTTP error ' + resp.status + ', falling back to simulation.');
         return simulatePayment(refId, paymentMethod, amount);
@@ -156,9 +155,10 @@ const TokoPay = (() => {
     }
 
     try {
-      const sign = await md5(merchantId + secretKey + refId);
-      const params = new URLSearchParams({ id_merchant: merchantId, ref_id: refId, sign });
-      const resp = await fetch(`${getBaseUrl()}/v1/order/status?${params.toString()}`);
+      // Panggil Vercel API proxy dengan format ?action=status
+      // (signature dihitung di server, secret key tidak perlu dikirim)
+      const params = new URLSearchParams({ action: 'status', ref_id: refId });
+      const resp = await fetch(`${getBaseUrl()}?${params.toString()}`);
       const text = await resp.text();
       let data;
       try { data = JSON.parse(text); } catch (e) { return { isPaid: false }; }
