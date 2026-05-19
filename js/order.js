@@ -861,13 +861,16 @@ function showPaymentModal(paymentResult) {
 
     let qrContent;
     if (rawQrString) {
-      // Generate QR image dari raw QRIS string - ini yang bisa di-scan
-      const qrGenUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&margin=10&ecc=M&data=' + encodeURIComponent(rawQrString);
-      qrContent = `<img src="${qrGenUrl}" style="width:220px;height:220px;object-fit:contain;border-radius:8px;" onerror="this.outerHTML='<div style=\"text-align:center;padding:16px;font-size:0.75rem;color:#666;\">QR tidak tersedia</div>'" />`;
+      // Generate QR langsung di browser pakai QRCode.js (tidak butuh internet/external image)
+      qrContent = '<div id="qr-render" style="display:flex;justify-content:center;align-items:center;padding:8px;"></div>';
+      // Akan di-render setelah modal ditampilkan (lihat setTimeout di bawah)
+      window._pendingQrString = rawQrString;
     } else if (directImageUrl && directImageUrl.startsWith('http')) {
-      qrContent = `<img src="${directImageUrl}" style="width:220px;height:220px;object-fit:contain;border-radius:8px;" onerror="this.outerHTML='<div style=\"text-align:center;padding:16px;font-size:0.75rem;color:#666;\">QR tidak tersedia</div>'" />`;
+      qrContent = '<div style="display:flex;justify-content:center;"><img id="qr-render" src="' + directImageUrl + '" style="width:220px;height:220px;object-fit:contain;border-radius:8px;" /></div>';
+      window._pendingQrString = null;
     } else {
-      qrContent = `<div style="text-align:center;padding:16px;"><div style="font-size:2rem;">📱</div><div style="font-size:0.75rem;color:#666;margin-top:4px;">${currentTransaction.invoiceId}</div></div>`;
+      qrContent = '<div style="text-align:center;padding:16px;"><div style="font-size:2rem;">📱</div></div>';
+      window._pendingQrString = null;
     }
     paymentContent = `
       <div class="qr-box">
@@ -922,6 +925,37 @@ function showPaymentModal(paymentResult) {
   `;
 
   modal.classList.add('active');
+
+  // Render QR code pakai QRCode.js jika ada pending QR string
+  if (window._pendingQrString) {
+    setTimeout(function() {
+      const container = document.getElementById('qr-render');
+      if (!container) return;
+      try {
+        container.innerHTML = '';
+        new QRCode(container, {
+          text: window._pendingQrString,
+          width: 220,
+          height: 220,
+          colorDark: '#000000',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+        // Pastikan canvas/img di dalam container terlihat
+        const child = container.firstChild;
+        if (child) {
+          child.style.borderRadius = '8px';
+          child.style.display = 'block';
+          child.style.margin = '0 auto';
+        }
+      } catch(e) {
+        console.error('QRCode render error:', e);
+        container.innerHTML = '<div style="text-align:center;padding:16px;color:#666;font-size:0.8rem;">QR tidak tersedia</div>';
+      }
+      window._pendingQrString = null;
+    }, 100);
+  }
+
   startCountdown(3600);
 }
 
