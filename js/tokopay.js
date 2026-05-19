@@ -61,7 +61,9 @@ const TokoPay = (() => {
   // TokoPay API pakai GET dengan query params (bukan POST)
   async function createOrder({ refId, amount, paymentMethod, customerPhone }) {
     const { merchantId, secretKey } = getCredentials();
-    if (!merchantId || !secretKey) {
+    // Langsung simulasi jika credentials tidak lengkap
+    if (!merchantId || !secretKey || merchantId.trim() === '' || secretKey.trim() === '') {
+      console.info('[TokoPay] No credentials configured, using simulation mode.');
       return simulatePayment(refId, paymentMethod, amount);
     }
 
@@ -81,10 +83,16 @@ const TokoPay = (() => {
         headers: { 'Content-Type': 'application/json' },
       });
 
+      // Jika response bukan 2xx (misal 404 dari GitHub Pages), langsung simulasi
+      if (!resp.ok) {
+        console.warn('[TokoPay] HTTP error ' + resp.status + ', falling back to simulation.');
+        return simulatePayment(refId, paymentMethod, amount);
+      }
+
       const text = await resp.text();
       let data;
       try { data = JSON.parse(text); } catch (e) {
-        console.warn('[TokoPay] JSON parse error:', text);
+        console.warn('[TokoPay] JSON parse error:', text.substring(0, 100));
         return simulatePayment(refId, paymentMethod, amount);
       }
 
