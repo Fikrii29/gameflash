@@ -1,7 +1,12 @@
 {
   "version": 2,
+  "functions": {
+    "api/tokopay.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/api/tokopay", "dest": "/api/tokopay.js" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }
