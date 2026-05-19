@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Icon Manager - Gameflash Admin</title>
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖼️</text></svg>" />
+    <style>
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .page-wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+
+        .page-header .back-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .page-header .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .page-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .page-desc {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-top: 4px;
+        }
+
+        /* ── Info Banner ── */
+        .info-banner {
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 28px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .info-banner .info-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* ── Game Grid ── */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .game-icon-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: all 0.2s;
+        }
+
+        .game-icon-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .game-icon-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .game-emoji-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.06);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .game-emoji-badge img {
+            width: 44px;
+            height: 44px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .game-card-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .game-card-pkgs {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ── Preview ── */
+        .preview-area {
+            background: #1a1a2e;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .preview-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .preview-card-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preview-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            object-fit: contain;
+            background: rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
+        }
+
+        .preview-card-info {
+            flex: 1;
+        }
+
+        .preview-pkg-name {
+            font-size: 0.75rem;
+            color: #d0d0e8;
+            font-weight: 600;
+        }
+
+        .preview-pkg-price {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #e8374b;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* ── Upload Zone ── */
+        .upload-zone {
+            border: 2px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 20px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-zone:hover,
+        .upload-zone.dragover {
+            border-color: var(--cyan);
+            background: rgba(0, 212, 255, 0.04);
+        }
+
+        .upload-zone.has-icon {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.04);
+        }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .upload-zone-content {
+            pointer-events: none;
+        }
+
+        .upload-icon-preview {
+            width: 56px;
+            height: 56px;
+            border-radius: 10px;
+            object-fit: contain;
+            margin: 0 auto 10px;
+            display: block;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .upload-zone-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .upload-zone-text strong {
+            color: var(--cyan);
+            display: block;
+            margin-bottom: 2px;
+            font-size: 0.85rem;
+        }
+
+        /* ── Actions ── */
+        .card-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-save {
+            flex: 1;
+            padding: 9px;
+            background: linear-gradient(135deg, #00d4ff, #8b5cf6);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-save:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-save:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-reset {
+            padding: 9px 14px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 8px;
+            color: var(--red);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-reset:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        /* ── Status dot ── */
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .status-dot.green {
+            background: var(--green);
+            box-shadow: 0 0 5px var(--green);
+        }
+
+        .status-dot.gray {
+            background: var(--text-muted);
+        }
+
+        /* ── Empty ── */
+        .empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty .e-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+
+        /* ── Toast ── */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 240px;
+            animation: slideIn 0.3s ease, fadeOut 0.3s 2.7s forwards;
+            font-size: 0.85rem;
+        }
+
+        .toast.success {
+            border-left: 3px solid var(--green);
+        }
+
+        .toast.error {
+            border-left: 3px solid var(--red);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+
+        @media(max-width:600px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="page-wrap">
+        <div class="page-header">
+            <a href="index.html" class="back-btn">← Admin</a>
+            <div>
+                <div class="page-title">🖼️ Icon Manager</div>
+                <div class="page-desc">Upload gambar icon currency untuk setiap game</div>
+            </div>
+        </div>
+
+        <div class="info-banner">
+            <span class="info-icon">💡</span>
+            <div>
+                <strong style="color:var(--cyan);display:block;margin-bottom:4px;">Cara pakai:</strong>
+                Pilih game, klik area upload atau drag & drop gambar icon currency-nya (contoh: gambar diamond ML, UC
+                PUBG, dll).
+                Icon akan otomatis tampil di <strong>semua kartu paket</strong> game tersebut — tidak perlu upload satu
+                per satu.
+                Format: <strong>PNG/JPG/WEBP/GIF</strong> · Ukuran ideal: <strong>64×64 px</strong> atau lebih.
+            </div>
+        </div>
+
+        <div id="gamesGrid" class="games-grid">
+            <div class="empty">
+                <div class="e-icon">🎮</div>
+                <p>Memuat daftar game...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/storage.js"></script>
+    <script>
+        // ── Storage key for currency icons ──
+        const ICON_KEY = 'gf_currency_icons'; // { gameId: base64DataUrl }
+
+        function loadIcons() {
+            try { return JSON.parse(localStorage.getItem(ICON_KEY) || '{}'); } catch { return {}; }
+        }
+        function saveIcons(icons) {
+            localStorage.setItem(ICON_KEY, JSON.stringify(icons));
+        }
+
+        // ── Read games from GF storage ──
+        function getGames() {
+            try {
+                const raw = localStorage.getItem('gf_games');
+                return raw ? JSON.parse(raw) : [];
+            } catch { return []; }
+        }
+
+        // ── Render all game cards ──
+        function render() {
+            const games = getGames().filter(g => g.active !== false);
+            const icons = loadIcons();
+            const grid = document.getElementById('gamesGrid');
+
+            if (!games.length) {
+                grid.innerHTML = `<div class="empty"><div class="e-icon">🎮</div><p>Belum ada game. Tambah game dulu di panel admin.</p></div>`;
+                return;
+            }
+
+            grid.innerHTML = games.map(game => {
+                const hasIcon = !!icons[game.id];
+                const iconSrc = icons[game.id] || '';
+                const pkgCount = (game.packages || []).filter(p => p.active !== false).length;
+
+                return `
+    <div class="game-icon-card" id="card_${game.id}">
+      <div class="game-icon-card-header">
+        <div class="game-emoji-badge">
+          ${game.image
+                        ? `<img src="${game.image}" onerror="this.outerHTML='${game.emoji || '🎮'}'" />`
+                        : (game.emoji || '🎮')}
+        </div>
+        <div>
+          <div class="game-card-name">${game.name}</div>
+          <div class="game-card-pkgs">
+            <span class="status-dot ${hasIcon ? 'green' : 'gray'}"></span>
+            ${hasIcon ? 'Icon terpasang' : 'Belum ada icon'} · ${pkgCount} paket
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview mini card -->
+      <div class="preview-area">
+        <div class="preview-label">Preview kartu paket</div>
+        <div class="preview-card-row">
+          <img class="preview-icon" id="prev_${game.id}"
+            src="${iconSrc || makePlaceholderSVG(game.emoji || '💎')}"
+            onerror="this.src='${makePlaceholderSVG(game.emoji || '💎')}'"/>
+          <div class="preview-card-info">
+            <div class="preview-pkg-name">86 Diamond</div>
+            <div class="preview-pkg-price">Rp 15.900</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload Zone -->
+      <label class="upload-zone ${hasIcon ? 'has-icon' : ''}" id="zone_${game.id}"
+        ondragover="event.preventDefault();this.classList.add('dragover')"
+        ondragleave="this.classList.remove('dragover')"
+        ondrop="handleDrop(event,'${game.id}')">
+        <input type="file" accept="image/*" onchange="handleFile(event,'${game.id}')" />
+        <div class="upload-zone-content">
+          ${hasIcon
+                        ? `<img class="upload-icon-preview" id="uprev_${game.id}" src="${iconSrc}" />`
+                        : `<div style="font-size:2rem;margin-bottom:8px;">📤</div>`}
+          <div class="upload-zone-text">
+            <strong>${hasIcon ? '✅ Icon terpasang — klik untuk ganti' : 'Klik atau drag & drop gambar'}</strong>
+            PNG · JPG · WEBP · GIF
+          </div>
+        </div>
+      </label>
+
+      <!-- Actions -->
+      <div class="card-actions">
+        <button class="btn-save" id="btnSave_${game.id}" onclick="saveIcon('${game.id}')" disabled>
+          💾 Simpan Icon
+        </button>
+        ${hasIcon ? `<button class="btn-reset" onclick="resetIcon('${game.id}')">🗑️</button>` : ''}
+      </div>
+    </div>`;
+            }).join('');
+        }
+
+        // ── Temp store for pending uploads (before save) ──
+        const pendingIcons = {};
+
+        function handleFile(event, gameId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            readAndPreview(file, gameId);
+        }
+
+        function handleDrop(event, gameId) {
+            event.preventDefault();
+            document.getElementById('zone_' + gameId)?.classList.remove('dragover');
+            const file = event.dataTransfer.files[0];
+            if (!file || !file.type.startsWith('image/')) return;
+            readAndPreview(file, gameId);
+        }
+
+        function readAndPreview(file, gameId) {
+            if (file.size > 2 * 1024 * 1024) {
+                showToast('Ukuran gambar max 2MB', 'error'); return;
+            }
+            const reader = new FileReader();
+            reader.onload = e => {
+                const dataUrl = e.target.result;
+                pendingIcons[gameId] = dataUrl;
+
+                // Update previews
+                const prevEl = document.getElementById('prev_' + gameId);
+                if (prevEl) prevEl.src = dataUrl;
+
+                // Update upload zone
+                const zone = document.getElementById('zone_' + gameId);
+                if (zone) {
+                    zone.classList.add('has-icon');
+                    const content = zone.querySelector('.upload-zone-content');
+                    content.innerHTML = `
+        <img class="upload-icon-preview" src="${dataUrl}" />
+        <div class="upload-zone-text">
+          <strong>✅ Siap disimpan — klik untuk ganti</strong>
+          ${file.name}
+        </div>`;
+                }
+
+                // Enable save button
+                const btn = document.getElementById('btnSave_' + gameId);
+                if (btn) btn.disabled = false;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function saveIcon(gameId) {
+            const dataUrl = pendingIcons[gameId];
+            if (!dataUrl) return;
+
+            const icons = loadIcons();
+            icons[gameId] = dataUrl;
+            saveIcons(icons);
+            delete pendingIcons[gameId];
+
+            showToast('Icon berhasil disimpan! 🎉', 'success');
+            render(); // re-render to show updated state
+        }
+
+        function resetIcon(gameId) {
+            if (!confirm('Hapus icon untuk game ini?')) return;
+            const icons = loadIcons();
+            delete icons[gameId];
+            saveIcons(icons);
+            delete pendingIcons[gameId];
+            showToast('Icon dihapus', 'success');
+            render();
+        }
+
+        // ── Placeholder SVG when no icon ──
+        function makePlaceholderSVG(emoji) {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+    <rect width="40" height="40" rx="8" fill="#1a1a3e"/>
+    <text x="20" y="27" text-anchor="middle" font-size="20" font-family="Arial">${emoji}</text>
+  </svg>`;
+            return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+        }
+
+        function showToast(msg, type = 'success') {
+            const c = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = `toast ${type}`;
+            t.innerHTML = `<span>${type === 'success' ? '✅' : '❌'}</span><span>${msg}</span>`;
+            c.appendChild(t);
+            setTimeout(() => t.remove(), 3200);
+        }
+
+        render();
+    </script>
+
+    <!-- Patch order.js to use uploaded icons — include this in order.html BEFORE order.js -->
+    <!-- <script src="js/icon-loader.js"></script> -->
+</body>
+
+</html>
