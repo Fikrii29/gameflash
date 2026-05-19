@@ -1,0 +1,8 @@
+{
+  "name": "gameflash",
+  "version": "1.0.0",
+  "description": "Gameflash Top Up Platform",
+  "engines": {
+    "node": ">=18.x"
+  }
+}
