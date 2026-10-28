@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gameflash - Top Up Game Tercepat & Terpercaya</title>
+<meta name="description" content="Top Up game favoritmu dengan harga terbaik dan proses instan. Mobile Legends, Free Fire, PUBG, Genshin Impact & lebih banyak lagi."/>
+<link rel="stylesheet" href="css/style.css?v=3"/>
+<link rel="stylesheet" href="css/home.css?v=3"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"/>
+</head>
+<body class="home">
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+<div class="bg-particles" id="bgParticles"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="logo-icon">⚡</div>
+    <span>Gameflash</span>
+  </a>
+  <div class="bj-actions">
+    <button class="bj-circle" onclick="toggleSearch()" aria-label="Cari game">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.500-3.500"/></svg>
+    </button>
+    <span class="bj-pill"><i class="bj-flag"></i> ID / IDR</span>
+    <button class="bj-circle" onclick="toggleNav()" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html" class="nav-link active">Beranda</a>
+    <a href="check-order.html" class="nav-link">Cek Pesanan</a>
+    <a href="tentang-kami.html" class="nav-link">Tentang Kami</a>
+    <a href="syarat-ketentuan.html" class="nav-link">Syarat &amp; Ketentuan</a>
+    <a href="kebijakan-privasi.html" class="nav-link">Kebijakan Privasi</a>
+    <a href="admin/index.html" class="nav-link">Admin</a>
+    <a href="check-order.html" class="nav-cta">🔍 Cek Status</a>
+  </div>
+</nav>
+
+<div class="bj-searchbar" id="searchBar">
+  <input type="text" id="searchInput" placeholder="Cari game..." oninput="filterGames()"/>
+</div>
+
+<main class="bj-main">
+<div class="bj-wrap">
+
+  <!-- BANNER -->
+  <section class="bj-banner promo-section" id="promoSection">
+    <div class="promo-slider-wrapper">
+      <div class="promo-slider" id="promoSlider">
+        <div class="promo-track" id="promoTrack"></div>
+      </div>
+      <button class="promo-nav promo-prev" id="promoPrev" onclick="promoSlide(-1)" aria-label="Sebelumnya">‹</button>
+      <button class="promo-nav promo-next" id="promoNext" onclick="promoSlide(1)" aria-label="Berikutnya">›</button>
+      <div class="promo-dots" id="promoDots"></div>
+    </div>
+  </section>
+
+  <!-- FLASH SALE -->
+  <section class="bj-flash" id="flashSection" style="display:none">
+    <div class="bj-flash-head">
+      <div class="bj-flash-title"><span class="bolt">⚡</span> FLASH SALE</div>
+      <div class="bj-count" id="flashCountdown">
+        <div class="cd"><span id="cdDays">0</span><small>hr</small></div>
+        <div class="cd"><span id="cdHours">0</span><small>jam</small></div>
+        <div class="cd"><span id="cdMinutes">0</span><small>mnt</small></div>
+        <div class="cd"><span id="cdSeconds">0</span><small>dtk</small></div>
+      </div>
+    </div>
+    <div class="bj-flash-sub">Pesan sekarang! Persediaan terbatas.</div>
+    <div class="bj-flash-scroll" id="flashScroll"></div>
+  </section>
+
+  <!-- TRENDING -->
+  <section id="bestsellerSection">
+    <div class="bj-sec-title"><span>🔥</span> TRENDING</div>
+    <div class="bj-sec-sub">Berikut adalah beberapa produk yang paling populer saat ini.</div>
+    <div class="bj-trending" id="bestsellerScroll"></div>
+  </section>
+
+  <!-- GAMES -->
+  <section id="gamesSection">
+    <div class="bj-tabs">
+      <button class="bj-arrow" onclick="scrollTabs(-1)" aria-label="Kiri">‹</button>
+      <div class="bj-tabs-scroll" id="categoryFilter"></div>
+      <button class="bj-arrow" onclick="scrollTabs(1)" aria-label="Kanan">›</button>
+    </div>
+    <div class="bj-grid" id="gamesGrid"></div>
+  </section>
+
+  <!-- CARA TOP UP -->
+  <section id="caraTopup">
+    <div class="bj-sec-title"><span>📋</span> CARA TOP UP</div>
+    <div class="bj-sec-sub">Cuma 4 langkah, selesai dalam hitungan menit.</div>
+    <div class="bj-steps">
+      <div class="bj-step"><div class="ico">🎮</div><b>1. Pilih Game</b><p>Pilih game yang ingin kamu top up.</p></div>
+      <div class="bj-step"><div class="ico">📦</div><b>2. Pilih Paket</b><p>Pilih nominal sesuai kebutuhanmu.</p></div>
+      <div class="bj-step"><div class="ico">💳</div><b>3. Bayar</b><p>Bayar via QRIS, transfer bank, atau e-wallet.</p></div>
+      <div class="bj-step"><div class="ico">✅</div><b>4. Selesai!</b><p>Item masuk otomatis, notifikasi dikirim via WhatsApp.</p></div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<!-- FOOTER -->
+<footer id="siteFooter"></footer>
+
+<!-- FLOATING CHAT CS -->
+<div class="floating-wa" id="floatingWa">
+  <button class="wa-btn" id="waBtn" onclick="openWhatsAppCS()" aria-label="Chat CS">🎧</button>
+</div>
+
+<script src="js/storage.js?v=3"></script>
+<script src="js/footer.js?v=3"></script>
+<script src="js/main.js?v=3"></script>
+</body>
+</html>
