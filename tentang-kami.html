@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tentang Kami - Gameflash</title>
+<meta name="description" content="Gameflash adalah platform top up game yang cepat, aman, dan terpercaya dengan berbagai metode pembayaran."/>
+<link rel="stylesheet" href="css/style.css?v=3"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"/>
+</head>
+<body>
+<div class="bg-particles" id="bgParticles"></div>
+<nav class="navbar">
+  <a href="index.html" class="nav-brand"><div class="logo-icon">⚡</div><span>Gameflash</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html" class="nav-link">Beranda</a>
+    <a href="check-order.html" class="nav-link">Cek Pesanan</a>
+    <a href="tentang-kami.html" class="nav-link">Tentang Kami</a>
+    <a href="check-order.html" class="nav-cta">🔍 Cek Status</a>
+  </div>
+  <div class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')"><span></span><span></span><span></span></div>
+</nav>
+
+<main class="legal-page">
+  <div class="legal-wrap">
+    <div class="legal-head">
+      <h1>Tentang Kami</h1>
+      <p>Kenali Gameflash lebih dekat</p>
+    </div>
+    <div class="legal-card">
+
+      <h2>Siapa Kami</h2>
+      <p>Gameflash adalah platform top up game online yang hadir untuk memudahkan para gamer Indonesia membeli diamond, UC, voucher, dan item in-game lainnya dengan harga terjangkau, proses cepat, dan aman. Layanan kami buka 24 jam setiap hari.</p>
+
+      <div class="about-stats">
+        <div class="about-stat"><b>12+</b><span>Game Populer</span></div>
+        <div class="about-stat"><b>1000+</b><span>Pilihan Produk</span></div>
+        <div class="about-stat"><b>24/7</b><span>Layanan Online</span></div>
+        <div class="about-stat"><b>Instan</b><span>Proses Otomatis</span></div>
+      </div>
+
+      <h2>Visi &amp; Misi</h2>
+      <p>Menjadi tempat top up game pilihan gamer Indonesia yang mengutamakan kecepatan, keamanan, dan kejujuran harga.</p>
+      <ul>
+        <li>Memproses pesanan secepat mungkin secara otomatis.</li>
+        <li>Menyediakan harga yang kompetitif serta promo dan voucher diskon.</li>
+        <li>Menyediakan banyak metode pembayaran: QRIS, transfer bank, dan e-wallet.</li>
+        <li>Memberikan layanan pelanggan yang responsif lewat WhatsApp.</li>
+      </ul>
+
+      <h2>Kenapa Memilih Gameflash</h2>
+      <ul>
+        <li><b>Proses instan</b> – item masuk ke akun game setelah pembayaran terkonfirmasi.</li>
+        <li><b>Aman</b> – pembayaran diproses melalui payment gateway resmi, dan kami tidak pernah meminta password akun game kamu.</li>
+        <li><b>Transparan</b> – status pesanan bisa dipantau kapan saja di halaman <a href="check-order.html">Cek Pesanan</a>.</li>
+        <li><b>Notifikasi WhatsApp</b> – update status transaksi dikirim langsung ke nomor kamu.</li>
+      </ul>
+
+      <h2 id="kontak">Hubungi Kami</h2>
+      <p>Ada pertanyaan, kendala transaksi, atau ingin bekerja sama? Tim kami siap membantu.</p>
+      <ul>
+        <li>WhatsApp: <a id="aboutWa" href="https://wa.me/6281234567890" target="_blank" rel="noopener">Chat Customer Service</a></li>
+        <li>Email: <a href="mailto:cs@gameflash.id">cs@gameflash.id</a></li>
+        <li>Instagram: <a href="https://instagram.com/gameflash_id" target="_blank" rel="noopener">@gameflash_id</a></li>
+      </ul>
+      <p>Saat menghubungi kami terkait pesanan, sertakan nomor invoice agar bisa kami bantu lebih cepat.</p>
+      <script>
+        window.addEventListener('load', function () {
+          try {
+            var s = GF.get(GF.KEYS.SETTINGS) || {};
+            if (s.whatsapp) document.getElementById('aboutWa').href = 'https://wa.me/' + s.whatsapp;
+          } catch (e) {}
+        });
+      </script>
+    </div>
+  </div>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="js/storage.js?v=3"></script>
+<script src="js/footer.js?v=3"></script>
+</body>
+</html>
